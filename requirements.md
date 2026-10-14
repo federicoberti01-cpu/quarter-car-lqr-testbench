@@ -2,13 +2,19 @@
 
 This document defines the quantitative performance requirements for the active suspension control system using a quarter-car model. All requirements must be verified via automated simulation tests.
 
+## Scenario Definition: (to be written)
+* Bump: height,length,speed
+* Step: height
+* Simulation Duration and i.c.
+* Rough road: (ISO)
+
 ---
 
 ## 1. Ride Comfort (Body Acceleration)
 * **ID:** R1
 * **Description:** The vehicle body acceleration must remain strictly bounded to ensure passenger comfort when traversing a standardized bump disturbance.
-* **Metric:** Root Mean Square of body acceleration
-* **Requirement:** RMS $\leq 70 /%$ of passive suspension
+* **Metric:** Root Mean Square of body acceleration (over what time window?)
+* **Requirement:** RMS $\leq 70 \%$ of passive suspension (no control, fixed damper)
 
 ---
 
@@ -23,14 +29,14 @@ This document defines the quantitative performance requirements for the active s
 ## 3. Road Holding (Tire Contact)
 * **ID:** R3
 * **Description:** The tire must maintain continuous contact with the road surface. Complete loss of contact (wheel lift-off) is hazardous and unacceptable.
-* **Metric:** Dynamic tire load/static tire load.
+* **Metric:** Dynamic tire load/static tire load  $\vert{}F_{tire,dynamic}\vert{}/((m_s + m_u)\cdot g) < 1
 * **Requirement:** Ratio is $<1$ (never loses contact)
 ---
 
 ## 4. Transient Response & Settling Time
 * **ID:** R4
 * **Description:** After encountering a step input or discrete bump, the suspension system must stabilize quickly without excessive oscillation.
-* **Metric:** Settling time ($t_s$) of the sprung mass vertical displacement to within a $\pm 5\%$ band of steady state.
+* **Metric:** Settling time ($t_s$) of the suspension deflection to within a $\pm 8\ \text{mm}$ band of steady state.
 * **Requirement:** Settling time $t_s \le 1.5 \, \text{seconds}$.
 
 ---
