@@ -1,7 +1,8 @@
 function sys = build_plant(p)
     % Defines the state space model for the quarter-car active suspension
-    % system. Returns matrices A (state), B (input), C(output),
-    % D(feedthrough). 
+    % system.
+    % Returns matrices A (state), B (input), C(output),
+    % D(feedthrough) in an ss object. 
     % States are x = [z_s-z_u, \dot{z_s}, z_u-z_r, \dot{z_u}]
     % Input are u = [F_a, \dot{z_r}]; Outputs are y = [\ddot{z_s}, z_s-z_u, z_u-z_r,Fa];
     % Disturbance is \dot{z_r}.
