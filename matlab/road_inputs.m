@@ -25,8 +25,11 @@ function r = road_inputs(scenario_type, t_end, dt, plot_profiles)
 
     switch lower(scenario_type)
         case 'step'
-            stepHeight = 0.03;                 % Standard step of 3cm     
+            stepHeight = 0.06;                 % Standard step of 3cm     
             x0 = [0; 0; -stepHeight; 0];
+
+            % Populate z_r and z_r_dot for visualization/plotting
+            z_r(:) = stepHeight;             % Road stays elevated after step_time
         
         case 'bump'
             bumpHeight = 0.05;                 % Standard bump of 5cm
@@ -91,11 +94,12 @@ function r = road_inputs(scenario_type, t_end, dt, plot_profiles)
     r.z_r_dot = z_r_dot;
     r.x0 = x0;
 
-    if plot_profiles:
+    if plot_profiles
         figure;
         subplot(2,1,1);
         plot(t, z_r, 'LineWidth', 1.2);
         xlabel('Time [s]'); ylabel('Road height [m]');
+        title(['Scenario: ', upper(scenario_type)]);
         grid on;
         subplot(2,1,2);
         plot(t, z_r_dot, 'LineWidth', 1.2);
