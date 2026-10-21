@@ -25,7 +25,7 @@ function r = road_inputs(scenario_type, t_end, dt, plot_profiles)
 
     switch lower(scenario_type)
         case 'step'
-            stepHeight = 0.06;                 % Standard step of 3cm     
+            stepHeight = 0.06;                 % Standard step of 6cm     
             x0 = [0; 0; -stepHeight; 0];
 
             % Populate z_r and z_r_dot for visualization/plotting
@@ -35,7 +35,7 @@ function r = road_inputs(scenario_type, t_end, dt, plot_profiles)
             bumpHeight = 0.05;                 % Standard bump of 5cm
             bumpLength = 1.2;                  % Standard length of 1.2m
             v = 10;                            % Car velocity
-            bump_start_dist = 1.0;  
+            bump_start_dist = 5.0;  
             
             x = v*t;                           % Distance vector
 
