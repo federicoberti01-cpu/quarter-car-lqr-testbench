@@ -8,12 +8,18 @@ clear; clc; close all;
 params = suspension_params();
 plant = build_plant(params);
 
+%% TRY 1: Bryson
 % Obtain weights for cost matrix through Bryson Rule. See
 % docs/bryson_weights_calculation for a detailed motivation.
-q1 = 1/(0.08)^2;            % Suspension deflection cost
-q2 = 1/(1.0)^2;             % Sprung velocity cost, estimate
-q3 = 1/(0.0176)^2;          % Tire deflection cost 
-r = 1/(1500)^2;             % Actuator cost
+%q1 = 1/(0.03)^2;            % Suspension deflection cost
+%q2 = 1/(1.0)^2;             % Sprung velocity cost, estimate
+%q3 = 1/(0.0176)^2;          % Tire deflection cost 
+%r = 1/(2500)^2;             % Actuator cost
+%% TRY 2: increase r, decrease acceleration
+q1 = 90;
+q2 = 1;
+q3 = 5e6;
+r = 1e-6;
 
 %% Open Loop Checks
 
@@ -31,7 +37,7 @@ disp(unique(zeta));
 
 % Check Controllability 
 isCtrb = (rank(ctrb(plant.A, plant.B(:,1))) == 4);      %Controllability is checked for the actuator input only
-fprintf('Controllable: %d\n', isCtrb);
+fprintf('Controllable: %s\n', string(isCtrb));
 
 %% LQR Controller Design
 [K, closedLoop_ss] = lqr_design(plant,q1,q2,q3,r);
@@ -39,11 +45,11 @@ fprintf('Controllable: %d\n', isCtrb);
 closedLoopPoles = eig(closedLoop_ss.A);
 isClosedLoopStable = all(real(closedLoopPoles) < 0);
 
-fprintf('Closed-loop stable: %d\n', isClosedLoopStable);
+fprintf('Closed-loop stable: %s\n', string(isClosedLoopStable));
 fprintf('Obtained Feedback Matrix K: ');
 disp(K)
 
-% Plot poles shift due to control
+%Plot poles shift due to control
 figure; hold on; grid on; 
 plot(real(openLoopPoles), imag(openLoopPoles), 'bo', 'MarkerSize',10, 'LineWidth',1.5) % open-loop
 plot(real(closedLoopPoles), imag(closedLoopPoles), 'r+', 'MarkerSize',10, 'LineWidth',1.5) % closed-loop
@@ -68,7 +74,7 @@ active_ss = closedLoop_ss;
 %% Simulation Loop
 
 scenarios = ["step","bump","rough"];
-sim_duration = [5, 6, 30];                 % Simulation times differ for each scenario
+sim_duration = [5, 10, 30];                 % Simulation times differ for each scenario
 dt = 1e-3;
 
 results = struct();
@@ -97,3 +103,11 @@ end
 %% Metrics retrieval and processing
 
 metrics = compute_metrics(results);
+for i = 1:3
+    fprintf('\nScenario: %s\n', results(i).scenario);
+    fprintf('Requirements table: \n')
+    disp(metrics(i).table_results)
+    fprintf('Requirements satisfied: %s ', string(metrics(i).allPass == true))
+end
+
+

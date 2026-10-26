@@ -25,7 +25,7 @@ function r = road_inputs(scenario_type, t_end, dt, plot_profiles)
 
     switch lower(scenario_type)
         case 'step'
-            stepHeight = 0.06;                 % Standard step of 6cm     
+            stepHeight = 0.03;                 % Standard step of 3cm     
             x0 = [0; 0; -stepHeight; 0];
 
             % Populate z_r and z_r_dot for visualization/plotting
@@ -33,8 +33,8 @@ function r = road_inputs(scenario_type, t_end, dt, plot_profiles)
         
         case 'bump'
             bumpHeight = 0.05;                 % Standard bump of 5cm
-            bumpLength = 1.2;                  % Standard length of 1.2m
-            v = 10;                            % Car velocity
+            bumpLength = 3;                    % Standard length of 3m
+            v = 5;                             % Car velocity
             bump_start_dist = 5.0;  
             
             x = v*t;                           % Distance vector
@@ -55,7 +55,7 @@ function r = road_inputs(scenario_type, t_end, dt, plot_profiles)
             Gd_n0 = 512e-6;                     % Roughness coefficient for D class road [m^3]
             n0 = 0.1;                          % Reference spacial frequency [cycles/m]
             w = 2.0;                            % Waviness exponent
-            v = 20;                            % Car velocity (ISO standard)
+            v = 10;                            % Car velocity 
             x = v*t;
 
             % Spatial frequency bounds
