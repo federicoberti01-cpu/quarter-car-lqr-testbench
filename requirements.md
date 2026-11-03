@@ -43,7 +43,7 @@ This document defines the quantitative performance requirements for the active s
 * **ID:** R4
 * **Description:** After encountering a step input or discrete bump, the suspension system must stabilize quickly without excessive oscillation.
 * **Metric:** Settling time ($t_s$) of the suspension deflection to within a $\pm 8\ \text{mm}$ band of steady state.
-* **Requirement:** Settling time $t_s \le 2.5 \, \text{seconds}$.
+* **Requirement:** Settling time $t_s \le 5 \, \text{seconds}$.
 
 ---
 

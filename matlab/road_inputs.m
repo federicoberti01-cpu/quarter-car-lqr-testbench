@@ -24,12 +24,33 @@ function r = road_inputs(scenario_type, t_end, dt, plot_profiles)
 
 
     switch lower(scenario_type)
-        case 'step'
-            stepHeight = 0.03;                 % Standard step of 3cm     
-            x0 = [0; 0; -stepHeight; 0];
-
-            % Populate z_r and z_r_dot for visualization/plotting
-            z_r(:) = stepHeight;             % Road stays elevated after step_time
+        case 'ramp'
+            stepHeight = 0.03;                 % Final height of 3cm
+            rampLength = 0.5;                  % Spatial length of the ramp climb [m]
+            v = 5;                             % Car velocity [m/s]
+            ramp_start_dist = v * 0.5;         % Distance where the ramp begins [m]  
+            
+            x = v * t;                         % Distance vector
+            
+            % 1. Before ramp: z_r = 0, z_r_dot = 0
+            % 2. On the ramp: linear climb
+            ramp_mask = (x >= ramp_start_dist) & (x <= (ramp_start_dist + rampLength));
+            if any(ramp_mask)
+                x_in_ramp = x(ramp_mask) - ramp_start_dist;
+                
+                % Linear elevation profile: z_r = (h / L) * x_local
+                z_r(ramp_mask) = (stepHeight / rampLength) * x_in_ramp;
+                
+                % Constant upward velocity during the climb: dz_r/dt = (h / L) * v
+                z_r_dot(ramp_mask) = (stepHeight / rampLength) * v;
+            end
+            
+            % 3. After the ramp: road stays elevated at stepHeight, velocity returns to 0
+            after_mask = (x > (ramp_start_dist + rampLength));
+            if any(after_mask)
+                z_r(after_mask) = stepHeight;
+                z_r_dot(after_mask) = 0;
+            end
         
         case 'bump'
             bumpHeight = 0.05;                 % Standard bump of 5cm
@@ -86,7 +107,7 @@ function r = road_inputs(scenario_type, t_end, dt, plot_profiles)
             end
 
         otherwise
-            error('Unknown scenario type: %s. Use ''step'', ''bump'', or ''rough''.');
+            error('Unknown scenario type: %s. Use ''ramp'', ''bump'', or ''rough''.');
     end
 
     r.t = t; 
