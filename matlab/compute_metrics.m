@@ -24,7 +24,7 @@ function c = compute_metrics(results)
     m_u = par.mu;
     k_t = par.kt;
     
-    scen = ["step","bump","rough"];
+    scen = ["ramp","bump","rough"];
     
     for i = 1:numel(scen)
         scenarioName = scen(i);
@@ -73,39 +73,94 @@ function c = compute_metrics(results)
 
 
         % R4
-        if strcmp(scenarioName, 'step')
+        v = 5.0;
+        x = v*t;
+        if strcmp(scenarioName, 'ramp')
             defl_final = 0;               % step steady value (from road_inputs.m)
             tol = 0.008;                     % absolute tolerance
-            inside = abs(susp_defl - defl_final) <= tol;
-            pass_inside = abs(susp_defl_pass - defl_final) <= tol;
+            ramp_start_dist = 1.0;        % from road_inputs.m
+            rampLength = 0.3;
 
-
-            % To estimate settling time, we require that all remaining samples stay inside
-            lastOutside = find(~inside, 1, 'last');
-
-            % Active loop
-            if isempty(lastOutside)
-                ts = t(1);                   % always inside
-            elseif lastOutside == numel(t)
-                ts = NaN;                    % never settles within record
-            else
-                ts = t(lastOutside + 1);
-            end
+            % Ramp end
+            ramp_end_pos = ramp_start_dist + rampLength;
+            post_ramp_mask = (x > ramp_end_pos);   % Consideriamo il tratto successivo alla salita
             
-            % Passive baseline loop
-            % Passive baseline loop
-            lastOutsidePass = find(~pass_inside, 1, 'last');
-            if isempty(lastOutsidePass)
-                ts_pass = t(1);
-            elseif lastOutsidePass == numel(t)
-                ts_pass = NaN;
-            else
-                ts_pass = t(lastOutsidePass + 1);
+            if any(post_ramp_mask)
+                t_post = t(post_ramp_mask);
+                defl_post = susp_defl(post_ramp_mask);
+                defl_pass_post = susp_defl_pass(post_ramp_mask);
+        
+                inside = abs(defl_post - defl_final) <= tol;
+                pass_inside = abs(defl_pass_post - defl_final) <= tol;
+                
+                % Active loop
+                lastOutside = find(~inside, 1, 'last');
+                if isempty(lastOutside)
+                    ts = t_post(1);                   
+                elseif lastOutside == numel(t_post)
+                    ts = t(end);                    
+                else
+                    ts = t_post(lastOutside + 1);
+                end
+                
+                % Passive baseline loop
+                lastOutsidePass = find(~pass_inside, 1, 'last');
+                if isempty(lastOutsidePass)
+                    ts_pass = t_post(1);
+                elseif lastOutsidePass == numel(t_post)
+                    ts_pass = NaN;
+                else
+                    ts_pass = t_post(lastOutsidePass + 1);
+                end
             end
+                c(i).R4 = ts;
+                c(i).passR4 = ts_pass;
 
+        elseif strcmp(scenarioName, 'bump')
+            defl_final = 0;                    % Valore di regime a valle del dosso
+            tol = 0.008;                       % Absolute tolerance
+            bump_start_dist = 1.0;
+            bumpLength = 3.0;
+            
+            % Bump end
+            bump_end_pos = bump_start_dist + bumpLength;
+            post_bump_mask = (x > bump_end_pos);
+            
+            if any(post_bump_mask)
+                % Extract post-bump vectors
+                t_post = t(post_bump_mask);
+                defl_post = susp_defl(post_bump_mask);
+                defl_pass_post = susp_defl_pass(post_bump_mask);
+        
+                %  Deflection inside the band
+                inside = abs(defl_post - defl_final) <= tol;
+                pass_inside = abs(defl_pass_post - defl_final) <= tol;
+        
+                % --- Active loop (Post-bump) ---
+                lastOutside = find(~inside, 1, 'last');
+                if isempty(lastOutside)
+                    ts = t_post(1);             % Già dentro fin dall'uscita del dosso
+                elseif lastOutside == numel(t_post)
+                    ts = NaN;                   % Non si assesta mai nel record
+                else
+                    ts = t_post(lastOutside + 1);
+                end
+                
+                % --- Passive baseline loop (Post-bump) ---
+                lastOutsidePass = find(~pass_inside, 1, 'last');
+                if isempty(lastOutsidePass)
+                    ts_pass = t_post(1);
+                elseif lastOutsidePass == numel(t_post)
+                    ts_pass = NaN;
+                else
+                    ts_pass = t_post(lastOutsidePass + 1);
+                end
+            end
+            % Log settling time for bump
             c(i).R4 = ts;
             c(i).passR4 = ts_pass;
-        else
+
+        else    %Rough scenario case
             c(i).R4 = NaN;
             c(i).passR4 = NaN;
         end
@@ -126,9 +181,22 @@ function c = compute_metrics(results)
 
         % Add a table printing metrics, value and threshold
         thr_names = ["R1";"R2";"R3";"R4";"R5"];
+        safety_thr_names = thr_names([2,3,5]);
+        performance_thr_names = thr_names([1,4]);
+
         vals = [c(i).R1;c(i).R2;c(i).R3;c(i).R4;c(i).R5];
+        safety_vals = vals([2,3,5]);
+        performance_vals = vals([1,4]);
+
         pass_vals = [c(i).passR1;c(i).passR2;c(i).passR3;c(i).passR4;c(i).passR5;];
+        safety_pass_vals = pass_vals([2,3,5]);
+        performance_pass_vals = pass_vals([1,4]);
+
         thr_vals = [thr_R1;thr_R2;thr_R3;thr_R4;thr_R5];
-        c(i).table_results = table(thr_names,vals,pass_vals,thr_vals, 'VariableNames', {'Requirement', 'Controlled System', 'Passive System','Threshold'});
+        safety_thr_vals = thr_vals([2,3,5]);
+        performance_thr_vals = thr_vals([1,4]);
+
+        c(i).safety_results = table(safety_thr_names,safety_vals,safety_pass_vals,safety_thr_vals, 'VariableNames', {'Requirement', 'Controlled System', 'Passive System','Threshold'});
+        c(i).perf_results = table(performance_thr_names,performance_vals,performance_pass_vals,performance_thr_vals, 'VariableNames', {'Requirement', 'Controlled System', 'Passive System','Threshold'});
     end
 end

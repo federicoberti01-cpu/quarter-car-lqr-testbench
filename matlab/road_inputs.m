@@ -26,9 +26,9 @@ function r = road_inputs(scenario_type, t_end, dt, plot_profiles)
     switch lower(scenario_type)
         case 'ramp'
             stepHeight = 0.03;                 % Final height of 3cm
-            rampLength = 0.5;                  % Spatial length of the ramp climb [m]
-            v = 5;                             % Car velocity [m/s]
-            ramp_start_dist = v * 0.5;         % Distance where the ramp begins [m]  
+            rampLength = 0.3;                  % Spatial length of the ramp climb [m]
+            v = 5.0;                             % Car velocity [m/s]
+            ramp_start_dist = 1.0;         % Distance where the ramp begins [m]  
             
             x = v * t;                         % Distance vector
             
@@ -54,9 +54,9 @@ function r = road_inputs(scenario_type, t_end, dt, plot_profiles)
         
         case 'bump'
             bumpHeight = 0.05;                 % Standard bump of 5cm
-            bumpLength = 3;                    % Standard length of 3m
-            v = 5;                             % Car velocity
-            bump_start_dist = 5.0;  
+            bumpLength = 3.0;                    % Standard length of 3m
+            v = 5.0;                             % Car velocity
+            bump_start_dist = 1.0;  
             
             x = v*t;                           % Distance vector
 

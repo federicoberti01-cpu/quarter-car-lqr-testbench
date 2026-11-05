@@ -14,7 +14,7 @@ plant = build_plant(params);
 %q1 = 1/(0.03)^2;            % Suspension deflection cost
 %q2 = 1/(1.0)^2;             % Sprung velocity cost, estimate
 %q3 = 1/(0.0176)^2;          % Tire deflection cost 
-%r = 1/(2500)^2;             % Actuator cost
+%r = 1/(1500)^2;             % Actuator cost
 %% TRY 2: increase r, decrease acceleration
 q1 = 0.1;
 q2 = 100;
@@ -99,9 +99,11 @@ end
 metrics = compute_metrics(results);
 for i = 1:3
     fprintf('\nScenario: %s\n', results(i).scenario);
-    fprintf('Requirements table: \n')
-    disp(metrics(i).table_results)
-    fprintf('Requirements satisfied: %s ', string(metrics(i).allPass == true))
+    fprintf('Safety requirements table: \n')
+    disp(metrics(i).safety_results)
+    fprintf('Performance requirements table: \n')
+    disp(metrics(i).perf_results)
 end
 
 
+    
