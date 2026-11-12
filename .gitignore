@@ -179,3 +179,25 @@ cython_debug/
 #  refer to https://docs.cursor.com/context/ignore-files
 .cursorignore
 .cursorindexingignore
+
+# Python / pytest cache
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.venv/
+venv/
+dist/
+build/
+
+# MATLAB cache & temporary files
+*.asv
+*.bak
+*.log
+*.slxc
+Slprj/
+codegen/
+
+# Operating System junk
+.DS_Store
+Thumbs.db
