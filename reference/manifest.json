@@ -1,0 +1,20 @@
+{
+  "generated": "2026-11-12T11:36:46",
+  "matlab_release": "25.2.0.3150157 (R2025b) Update 4",
+  "files": [
+    ".",
+    "..",
+    "controller.json",
+    "metrics_nominal.json",
+    "plant_nominal.json",
+    "requirements.json",
+    "rough_road_components.json",
+    "scenarios.json",
+    "sim_bump_active.csv",
+    "sim_bump_passive.csv",
+    "sim_ramp_active.csv",
+    "sim_ramp_passive.csv",
+    "sim_rough_active.csv",
+    "sim_rough_passive.csv"
+  ]
+}

@@ -83,7 +83,7 @@ function c = compute_metrics(results)
 
             % Ramp end
             ramp_end_pos = ramp_start_dist + rampLength;
-            post_ramp_mask = (x > ramp_end_pos);   % Consideriamo il tratto successivo alla salita
+            post_ramp_mask = (x > ramp_end_pos);   
             
             if any(post_ramp_mask)
                 t_post = t(post_ramp_mask);
@@ -117,7 +117,7 @@ function c = compute_metrics(results)
                 c(i).passR4 = ts_pass;
 
         elseif strcmp(scenarioName, 'bump')
-            defl_final = 0;                    % Valore di regime a valle del dosso
+            defl_final = 0;                   
             tol = 0.008;                       % Absolute tolerance
             bump_start_dist = 1.0;
             bumpLength = 3.0;

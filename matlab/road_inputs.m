@@ -21,7 +21,8 @@ function r = road_inputs(scenario_type, t_end, dt, plot_profiles)
     z_r = zeros(size(t));
     z_r_dot = zeros(size(t));
     x0 = zeros(4,1);
-
+    
+    comps = struct();       % Necessary for export_reference
 
     switch lower(scenario_type)
         case 'ramp'
@@ -94,18 +95,25 @@ function r = road_inputs(scenario_type, t_end, dt, plot_profiles)
             % Harmonic superposition for displacement (z_r) and velocity (z_dot_r)
             z_r = zeros(size(t));
             z_r_dot = zeros(size(t));
-        
+            
+            amp = zeros(N_freq,1);
             for i = 1:N_freq
                 n_i = n_vec(i);
                 % PSD magnitude at spatial frequency n_i
                 Gd_i = Gd_n0 * (n_i / n0)^(-w);
-                amplitude = sqrt(2 * Gd_i * dn);
+                amp(i) = sqrt(2 * Gd_i * dn);
                 
                 % Accumulate elevation and time derivative (dx/dt = v)
-                z_r = z_r + amplitude * cos(2 * pi * n_i * x + phases(i));
-                z_r_dot = z_r_dot - amplitude * (2 * pi * n_i * v) * sin(2 * pi * n_i * x + phases(i));
+                z_r = z_r + amp(i) * cos(2 * pi * n_i * x + phases(i));
+                z_r_dot = z_r_dot - amp(i) * (2 * pi * n_i * v) * sin(2 * pi * n_i * x + phases(i));
             end
-
+            comps.n_cycles_per_m = n_vec;
+            comps.amplitude_m    = amp;
+            comps.phase_rad      = phases;
+            comps.speed_mps      = v;
+            comps.seed           = s;               
+            comps.formula = ['z_r(t) = sum_i A_i cos(2 pi n_i v t + phi_i); ' ...
+                             'dz_r(t) = -sum_i A_i 2 pi n_i v sin(2 pi n_i v t + phi_i)'];
         otherwise
             error('Unknown scenario type: %s. Use ''ramp'', ''bump'', or ''rough''.');
     end
@@ -114,6 +122,7 @@ function r = road_inputs(scenario_type, t_end, dt, plot_profiles)
     r.z_r = z_r;
     r.z_r_dot = z_r_dot;
     r.x0 = x0;
+    r.comps = comps;
 
     if plot_profiles
         figure;

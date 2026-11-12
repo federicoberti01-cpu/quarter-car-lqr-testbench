@@ -7,6 +7,7 @@ clear; clc; close all;
 
 params = suspension_params();
 plant = build_plant(params);
+cfg = scenario_config();
 
 %% TRY 1: Bryson
 % Obtain weights for cost matrix through Bryson Rule. See
@@ -50,21 +51,21 @@ fprintf('Obtained Feedback Matrix K: ');
 disp(K)
 
 % %Plot poles shift due to control
-% figure; hold on; grid on; 
-% plot(real(openLoopPoles), imag(openLoopPoles), 'bo', 'MarkerSize',10, 'LineWidth',1.5) % open-loop
-% plot(real(closedLoopPoles), imag(closedLoopPoles), 'r+', 'MarkerSize',10, 'LineWidth',1.5) % closed-loop
-% xlabel('Real Axis'); ylabel('Imag Axis')
-% legend('Open-loop poles','Closed-loop poles','Location','best')
-% 
-% % Optionally connect closest pairs to show movement
-% for i = 1:min(numel(openLoopPoles),numel(closedLoopPoles))
-%     % find nearest closed-loop pole to each open-loop pole
-%     [~, idx] = min(abs(closedLoopPoles - openLoopPoles(i)));
-%     h = plot([real(openLoopPoles(i)), real(closedLoopPoles(idx))], [imag(openLoopPoles(i)), imag(closedLoopPoles(idx))], 'g--');
-%     h.HandleVisibility = 'off';
-% end
-% 
-% title('Pole Movement: Open-loop → Closed-loop')
+figure; hold on; grid on; 
+plot(real(openLoopPoles), imag(openLoopPoles), 'bo', 'MarkerSize',10, 'LineWidth',1.5) % open-loop
+plot(real(closedLoopPoles), imag(closedLoopPoles), 'r+', 'MarkerSize',10, 'LineWidth',1.5) % closed-loop
+xlabel('Real Axis'); ylabel('Imag Axis')
+legend('Open-loop poles','Closed-loop poles','Location','best')
+
+% Optionally connect closest pairs to show movement
+for i = 1:min(numel(openLoopPoles),numel(closedLoopPoles))
+    % find nearest closed-loop pole to each open-loop pole
+    [~, idx] = min(abs(closedLoopPoles - openLoopPoles(i)));
+    h = plot([real(openLoopPoles(i)), real(closedLoopPoles(idx))], [imag(openLoopPoles(i)), imag(closedLoopPoles(idx))], 'g--');
+    h.HandleVisibility = 'off';
+end
+
+title('Pole Movement: Open-loop → Closed-loop')
 
 %% Passive vs. active suspension systems
 
@@ -73,26 +74,7 @@ active_ss = closedLoop_ss;
 
 %% Simulation Loop
 
-scenarios = ["ramp","bump","rough"];
-sim_duration = [10, 10, 30];                 % Simulation times differ for each scenario
-dt = 1e-3;
-
-results = struct();
-for idx = 1:numel(scenarios)
-    scenario = scenarios(idx);
-    roadInput = road_inputs(scenario,sim_duration(idx),dt,false);
-    t = roadInput.t;
-    
-    % Simulation Loop
-    roadVelocityProfile = roadInput.z_r_dot;
-    passiveResponse = lsim(passive_ss, roadVelocityProfile, t,'foh');
-    activeResponse = lsim(active_ss, roadVelocityProfile, t, 'foh');
-
-    results(idx).scenario = scenario;
-    results(idx).t = t;
-    results(idx).passive = passiveResponse;
-    results(idx).active = activeResponse;
-end
+results = run_scenarios(passive_ss, active_ss, cfg);
 
 %% Metrics retrieval and processing
 

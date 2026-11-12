@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "sim": {
+    "dt": 0.001
+  },
+  "scenarios": {
+    "ramp": {
+      "type": "ramp",
+      "height_m": 0.03,
+      "speed_mps": 5,
+      "length_m": 0.3,
+      "shape": "linear",
+      "lead_in_s": 0.5,
+      "t_end": 10,
+      "window_start": 0.5,
+      "event_start_s": 0.5,
+      "event_end_s": 0.56
+    },
+    "bump": {
+      "type": "bump",
+      "height_m": 0.05,
+      "length_m": 3,
+      "speed_mps": 5,
+      "lead_in_s": 0.5,
+      "t_end": 10,
+      "window_start": 0.5,
+      "event_start_s": 0.5,
+      "event_end_s": 1.1
+    },
+    "rough": {
+      "type": "rough",
+      "iso_class": "D",
+      "Gd_n0": 0.000512,
+      "n0": 0.1,
+      "waviness": 2,
+      "speed_mps": 10,
+      "n_min": 0.025,
+      "n_max": 1,
+      "n_components": 500,
+      "seed": 42,
+      "t_end": 30,
+      "window_start": 2
+    }
+  }
+}

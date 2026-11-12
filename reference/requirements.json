@@ -1,0 +1,60 @@
+{
+  "R1": {
+    "kind": "performance",
+    "metric": "rms_body_accel",
+    "type": "ratio_to_passive",
+    "threshold": 0.7,
+    "applies_to": [
+      "ramp",
+      "bump",
+      "rough"
+    ]
+  },
+  "R2": {
+    "kind": "safety",
+    "metric": "max_abs_susp_defl",
+    "type": "absolute",
+    "threshold": 0.08,
+    "units": "m",
+    "applies_to": [
+      "ramp",
+      "bump",
+      "rough"
+    ]
+  },
+  "R3": {
+    "kind": "safety",
+    "metric": "max_tire_load_ratio",
+    "type": "absolute",
+    "threshold": 1,
+    "applies_to": [
+      "ramp",
+      "bump",
+      "rough"
+    ]
+  },
+  "R4": {
+    "kind": "performance",
+    "metric": "settling_time",
+    "type": "absolute",
+    "threshold": 1.5,
+    "units": "s",
+    "band_m": 0.008,
+    "applies_to": [
+      "ramp",
+      "bump"
+    ]
+  },
+  "R5": {
+    "kind": "safety",
+    "metric": "max_abs_force",
+    "type": "absolute",
+    "threshold": 1500,
+    "units": "N",
+    "applies_to": [
+      "ramp",
+      "bump",
+      "rough"
+    ]
+  }
+}
