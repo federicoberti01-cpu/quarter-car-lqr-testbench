@@ -204,3 +204,5 @@ codegen/
 # Operating System junk
 .DS_Store
 Thumbs.db
+.idea/workspace.xml
+/scratch/

@@ -1,6 +1,7 @@
 from pathlib import Path
 import pytest
-from quarter_car.loader import *
+import numpy as np
+from quarter_car.loader import load_json,load_plant
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
@@ -20,7 +21,7 @@ def plant(ref_dir) -> dict:
 def K(ref_dir) -> np.ndarray:
     # Loads K feedback matrix
     cont = load_json(ref_dir, "controller.json")
-    return np.array(cont["K"]).reshape(1,4)
+    return np.array(cont["K"], dtype = float).reshape(1,-1)
 
 @pytest.fixture(scope="session")
 def scen_conf(ref_dir) -> dict:
