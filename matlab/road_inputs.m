@@ -29,7 +29,7 @@ function r = road_inputs(scenario_type, t_end, dt, plot_profiles)
             stepHeight = 0.03;                 % Final height of 3cm
             rampLength = 0.3;                  % Spatial length of the ramp climb [m]
             v = 5.0;                             % Car velocity [m/s]
-            ramp_start_dist = 1.0;         % Distance where the ramp begins [m]  
+            ramp_start_dist = 0.5*v;         % Distance where the ramp begins [m]  
             
             x = v * t;                         % Distance vector
             

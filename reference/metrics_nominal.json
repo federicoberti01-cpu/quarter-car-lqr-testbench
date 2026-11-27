@@ -1,14 +1,14 @@
 [
   {
-    "R1": 18.06685994799653,
+    "R1": 51.156643580965309,
     "passR1": 100,
-    "R2": 0.034284458030045047,
-    "passR2": 0.029855610937573957,
-    "R3": 0.39913314276467193,
-    "passR3": 0.23764685422507298,
-    "R4": 0.507,
-    "passR4": 1.118,
-    "R5": 553.31647664438754,
+    "R2": 0.0340238085163721,
+    "passR2": 0.029634100565557962,
+    "R3": 0.40829216698101911,
+    "passR3": 0.24625915259852027,
+    "R4": 0.802,
+    "passR4": 1.414,
+    "R5": 550.14799372742209,
     "passR5": 0,
     "pass": [
       true,
@@ -21,19 +21,19 @@
     "safety_results": [
       {
         "Requirement": "R2",
-        "ControlledSystem": 0.034284458030045047,
-        "PassiveSystem": 0.029855610937573957,
+        "ControlledSystem": 0.0340238085163721,
+        "PassiveSystem": 0.029634100565557962,
         "Threshold": 0.08
       },
       {
         "Requirement": "R3",
-        "ControlledSystem": 0.39913314276467193,
-        "PassiveSystem": 0.23764685422507298,
+        "ControlledSystem": 0.40829216698101911,
+        "PassiveSystem": 0.24625915259852027,
         "Threshold": 1
       },
       {
         "Requirement": "R5",
-        "ControlledSystem": 553.31647664438754,
+        "ControlledSystem": 550.14799372742209,
         "PassiveSystem": 0,
         "Threshold": 1500
       }
@@ -41,14 +41,14 @@
     "perf_results": [
       {
         "Requirement": "R1",
-        "ControlledSystem": 18.06685994799653,
+        "ControlledSystem": 51.156643580965309,
         "PassiveSystem": 100,
         "Threshold": 70
       },
       {
         "Requirement": "R4",
-        "ControlledSystem": 0.507,
-        "PassiveSystem": 1.118,
+        "ControlledSystem": 0.802,
+        "PassiveSystem": 1.414,
         "Threshold": 1.5
       }
     ]
