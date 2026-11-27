@@ -4,13 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7b5b99f2-50d0-4c3f-855a-04c1dce891f7" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/tests/test_road.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="8c88e57c-7141-4fba-8588-499e0ffd2dfc" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/quarter-car-lqr-testbench.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/quarter-car-lqr-testbench.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/matlab/compute_metrics.m" beforeDir="false" afterPath="$PROJECT_DIR$/matlab/compute_metrics.m" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/matlab/road_inputs.m" beforeDir="false" afterPath="$PROJECT_DIR$/matlab/road_inputs.m" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/reference/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/reference/manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/reference/metrics_nominal.json" beforeDir="false" afterPath="$PROJECT_DIR$/reference/metrics_nominal.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/reference/sim_bump_active.csv" beforeDir="false" afterPath="$PROJECT_DIR$/reference/sim_bump_active.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/reference/sim_bump_passive.csv" beforeDir="false" afterPath="$PROJECT_DIR$/reference/sim_bump_passive.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/quarter_car/scenarios.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/quarter_car/scenarios.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/conftest.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/conftest.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/test_smoke.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/test_road.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_road.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,14 +25,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="50" />
-  </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Python Script" />
-      </list>
-    </option>
+    <option name="cachedIndexableFilesCount" value="48" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -37,10 +37,7 @@
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 8
 }</component>
-  <component name="ProjectId" id="3MMgeYl6BujlWlgJhr8rpkRnnw5" />
-  <component name="ProjectLevelVcsManager">
-    <ConfirmationsSetting value="2" id="Add" />
-  </component>
+  <component name="ProjectId" id="3MdpP4820L0eUGG2XCZCsftqKUI" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -49,7 +46,6 @@
   "keyToString": {
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "Python.inspect_reference.executor": "Run",
-    "Python.scenarios.executor": "Run",
     "RunOnceActivity.MCP Project settings loaded": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
@@ -58,7 +54,7 @@
     "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
     "junie.onboarding.icon.badge.shown": "true",
-    "last_opened_file_path": "C:/Users/feder/OneDrive/Desktop/Projects/quarter-car-lqr-testbench",
+    "last_opened_file_path": "C:/dev/quarter-car-lqr-testbench",
     "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable",
     "to.speed.mode.migration.done": "true"
   }
@@ -72,15 +68,12 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="7b5b99f2-50d0-4c3f-855a-04c1dce891f7" name="Changes" comment="" />
-      <created>1795165949940</created>
+      <changelist id="8c88e57c-7141-4fba-8588-499e0ffd2dfc" name="Changes" comment="" />
+      <created>1795690271604</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1795165949940</updated>
+      <updated>1795690271604</updated>
     </task>
     <servers />
-  </component>
-  <component name="UnknownFeatures">
-    <option featureType="com.intellij.fileTypeFactory" implementationName="*.m" />
   </component>
 </project>

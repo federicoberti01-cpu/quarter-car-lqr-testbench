@@ -57,7 +57,7 @@ function r = road_inputs(scenario_type, t_end, dt, plot_profiles)
             bumpHeight = 0.05;                 % Standard bump of 5cm
             bumpLength = 3.0;                    % Standard length of 3m
             v = 5.0;                             % Car velocity
-            bump_start_dist = 1.0;  
+            bump_start_dist = 0.5*v;
             
             x = v*t;                           % Distance vector
 

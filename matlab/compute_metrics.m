@@ -119,7 +119,7 @@ function c = compute_metrics(results)
         elseif strcmp(scenarioName, 'bump')
             defl_final = 0;                   
             tol = 0.008;                       % Absolute tolerance
-            bump_start_dist = 1.0;
+            bump_start_dist = 0.5*v;
             bumpLength = 3.0;
             
             % Bump end
